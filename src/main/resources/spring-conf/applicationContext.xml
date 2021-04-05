@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+">
+    <context:property-placeholder location="classpath:database-conf/c3p0.properties"/>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 数据库驱动 -->
+        <property name="driverClass" value="${c3p0.driverClass}"/>
+        <property name="jdbcUrl" value="${c3p0.jdbcUrl}"/>
+        <property name="user" value="${c3p0.user}"/>
+        <property name="password" value="${c3p0.password}"/>
+        <!-- 初始化连接数 -->
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
+        <!-- 最大连接数 -->
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <!-- 最小连接数 -->
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <!-- 连接的生存时间 -->
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
+    </bean>
+
+    <!--配置spring事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 开启事务注解扫描 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 开启Mapper接口扫描器: 扫描Dao层 -->
+    <!--
+        我的理解是，在service层需要自动注入mapper对象，而传统方法是把xxxMapper配置到bean里
+        现在开启扫描，basePackage路径下所有的类自动装配
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.via.dao"/>
+    </bean>
+
+    <!-- 开启Spring IOC注解扫描器: 扫描Service层-->
+    <context:component-scan base-package="com.via.service"/>
+
+
+
+
+</beans>
