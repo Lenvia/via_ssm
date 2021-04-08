@@ -35,6 +35,30 @@
     <!-- 开启事务注解扫描 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+
+    <!-- MyBatis与Spring整合 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 指定Mapper映射文件位置 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!-- 指定MyBatis核心配置文件位置 -->
+        <property name="configLocation" value="classpath:/mybatis-conf/mybatis-config.xml"/>
+        <!-- 引入插件 -->
+        <property name="plugins">
+            <array>
+                <!-- 引入MyBaits分页插件 -->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!-- 指定数据库类型 -->
+                        <value>helperDialct=mysql</value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+
     <!-- 开启Mapper接口扫描器: 扫描Dao层 -->
     <!--
         我的理解是，在service层需要自动注入mapper对象，而传统方法是把xxxMapper配置到bean里
