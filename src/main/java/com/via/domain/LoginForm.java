@@ -7,11 +7,12 @@ public class LoginForm {
     private String verifiCode;
     private Integer userType;
 
-    public String getUsername() {
+
+    public String getEmail() {
         return email;
     }
 
-    public void setUsername(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -37,5 +38,15 @@ public class LoginForm {
 
     public void setUserType(Integer userType) {
         this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginForm{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", verifiCode='" + verifiCode + '\'' +
+                ", userType=" + userType +
+                '}';
     }
 }

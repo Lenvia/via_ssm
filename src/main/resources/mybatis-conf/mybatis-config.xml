@@ -5,6 +5,7 @@
     <!-- 为sql映射文件中的输入/输出参数设置类型别名 -->
     <!--指定entity扫描包类 让mybatis自定扫描到自定义的entity。-->
     <typeAliases>
+        <!--在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名-->
         <package name="com.via.domain"/>
     </typeAliases>
 </configuration>

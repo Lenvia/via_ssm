@@ -29,18 +29,18 @@
             });
 
             // 点击了提交按钮
-            $("submitBtn").click(function () {
-                if($("email").val() === ""){  // 要用三个等号
+            $("#submitBtn").click(function () {
+                if($("#email").val() === ""){  // 要用三个等号
                     $.messager.alert("提示", "请输入邮箱！", "warning");
                 }
-                else if($("password").val() === "") {
+                else if($("#password").val() === "") {
                     $.messager.alert("提示", "请输入密码！", "warning");
                 }
-                else if($("verifiCode").val() === "") {
+                else if($("#verifiCode").val() === "") {
                     $.messager.alert("提示", "请输入验证码！", "warning");
                 }
                 else{  // 提交
-                    var data = $("form").serialize();
+                    var data = $("#form").serialize();
                     $.ajax({
                         type: "post",
                         url: "login",
@@ -53,8 +53,8 @@
                             }
                             else{  // 没通过，显示错误信息，并刷新验证码
                                 $.messager.alert("提示", data.msg, "warning");
-                                $("vcodeImg").click();  // 模拟一次点击切换验证码
-                                $("verifiCode").val("");  // 清空验证码输入框
+                                $("#vcodeImg").click();  // 模拟一次点击切换验证码
+                                $("#verifiCode").val("");  // 清空验证码输入框
                             }
                         }
                     })

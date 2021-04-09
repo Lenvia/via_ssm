@@ -2,5 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.via.dao.StudentMapper">
-    
+    <!--验证登录信息是否正确。根据邮箱和密码来验证-->
+    <select id="login" parameterType="loginForm" resultType="student">
+        select * from tb_student
+        where email=#{email} and password = #{password}
+    </select>
 </mapper>

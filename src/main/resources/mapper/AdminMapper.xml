@@ -3,4 +3,9 @@
 
 <mapper namespace="com.via.dao.AdminMapper">
 
+    <!--验证登录信息是否正确。根据邮箱和密码来验证-->
+    <select id="login" parameterType="loginForm" resultType="admin">
+        select * from tb_admin
+        where email=#{email} and password = #{password}
+    </select>
 </mapper>

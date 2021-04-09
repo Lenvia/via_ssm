@@ -2,7 +2,7 @@ package com.via.domain;
 
 public class Student {
     private int sid;  // 学生id
-    private String sname;  // 学生姓名
+    private String name;  // 学生姓名
     private String gender;  // 学生性别
     private String major;  // 学生专业
     private String email;  // 学生邮箱（唯一）
@@ -19,12 +19,12 @@ public class Student {
         this.sid = sid;
     }
 
-    public String getSname() {
-        return sname;
+    public String getName() {
+        return name;
     }
 
-    public void setSname(String sname) {
-        this.sname = sname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getGender() {
@@ -87,7 +87,7 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "sid=" + sid +
-                ", sname='" + sname + '\'' +
+                ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", major='" + major + '\'' +
                 ", email='" + email + '\'' +
