@@ -145,4 +145,18 @@ public class SystemController {
     public String goSystemMainView() {
         return "system/main";  // 实际跳转为/WEB-INF/view/system/main.jsp
     }
+
+    @RequestMapping("/loginOut")
+    public void loginOut(HttpServletRequest request, HttpServletResponse response){
+        // 清除登录信息
+        request.getSession().removeAttribute("userInfo");
+        request.getSession().removeAttribute("userType");
+
+        // 注销后重定向到登录页面
+        try {
+            response.sendRedirect("../index.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

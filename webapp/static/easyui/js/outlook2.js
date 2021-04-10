@@ -48,12 +48,14 @@ function InitLeftMenu() {
 		var menulist ='';
 		/*
 			以第一个为例，menulist添加的html文本为
-			<ul><li><div>
-				  <a ref="21" href="#" rel="../student/goStudentListView" >
-				    <span class="icon icon-student" >&nbsp;</span>
-				    <span class="nav">学生列表</span>
-				  </a>
-			</div></li></ul>
+			<ul>
+				<li><div>
+					  <a ref="21" href="#" rel="../student/goStudentListView" >
+						<span class="icon icon-student" >&nbsp;</span>
+						<span class="nav">学生列表</span>
+					  </a>
+				</div></li>
+			</ul>
 		*/
 		menulist +='<ul>';
         $.each(n.menus, function(j, o) {
@@ -80,7 +82,8 @@ function InitLeftMenu() {
 		var menuid = $(this).attr("ref");  // "21"
 		var icon = getIcon(menuid,icon);  // "icon icon-student"
 
-		addTab(tabTitle,url,icon);
+		addTab(tabTitle,url,icon);  // 在tabs栏创建/选中当前tab
+
 		$('.easyui-accordion li div').removeClass("selected");  // 移除左侧其他div的选中状态样式
 		$(this).parent().addClass("selected");  // 给当前div添加选中状态样式
 	}).hover(function(){
@@ -94,6 +97,7 @@ function InitLeftMenu() {
 	var t = panels[0].panel('options').title;
     $('#nav').accordion('select', t);  // 'select'选择指定的面板（panel）。'which' 参数可以是面板（panel）的标题（title）或索引（index）。
 }
+
 //获取左侧导航的图标
 function getIcon(menuid){
 	var icon = 'icon ';
@@ -109,7 +113,6 @@ function getIcon(menuid){
 }
 
 // 例如 addTab("学生列表", "../student/goStudentListView", "icon icon-student")
-// 说实话这里我不知道为啥url要加个..，我在menus中去掉了并没有报错，src仍然是localhost:8080/student/goStudentListView
 function addTab(subtitle,url,icon){
 	if(!$('#tabs').tabs('exists',subtitle)){
 		$('#tabs').tabs('add',{
