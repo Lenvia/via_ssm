@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class StudentServiceImpl implements StudentService {
@@ -17,5 +19,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student login(LoginForm loginForm) {
         return studentMapper.login(loginForm);
+    }
+
+    @Override
+    public List<Student> selectList(Student student) {
+        return studentMapper.selectList(student);
     }
 }

@@ -7,4 +7,16 @@
         select * from tb_student
         where email=#{email} and password = #{password}
     </select>
+    
+    <select id="selectList" parameterType="student" resultType="student">
+        select sid, name, gender, major, email, telephone, introduction from tb_student
+        <where>
+            <if test="major!=null and major!=''">
+                AND major = #{major}
+            </if>
+            <if test="name!=null and name!=''">
+                AND name LIKE concat(concat('%', #{name}), '%')
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -10,7 +10,15 @@ public class LoginInterceptor implements HandlerInterceptor {
     // 该方法会在控制器方法前执行,其返回值表示是否中断后续操作
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return true;
+        //获取请求的url
+        String url = request.getRequestURI();
+        //判断用户是否已登录
+        if (request.getSession().getAttribute("userInfo") != null) {
+            return true;
+        }
+        //用户未登录,拦击其请求并将其转发到用户登录页面
+        request.getRequestDispatcher("/WEB-INF/view/system/login.jsp").forward(request, response);
+        return false;
     }
 
     // 该方法会在控制器方法调用之后,且解析视图之前调用

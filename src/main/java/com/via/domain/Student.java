@@ -11,6 +11,11 @@ public class Student {
     private String introduction;  // 介绍
     private String portrait_path;  // 头像路径（默认为NULL）
 
+    public Student(String name, String major){
+        this.name = name;
+        this.major = major;
+    }
+
     public int getSid() {
         return sid;
     }

@@ -18,6 +18,19 @@
     <!-- 处理静态资源 -->
     <mvc:default-servlet-handler/>
 
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/static/h-ui/**"/>
+            <mvc:exclude-mapping path="/static/easyui/**"/>
+            <mvc:exclude-mapping path="/system/login"/>
+            <mvc:exclude-mapping path="/system/getVerifiCodeImage"/>
+            <bean class="com.via.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
     <!-- 配置内部资源视图解析器-->
     <!-- 可以在RequestMapping返回响应（文件名）时省略前后缀 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
