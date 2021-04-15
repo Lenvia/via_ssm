@@ -9,4 +9,8 @@ public interface StudentMapper {
     Student login(LoginForm loginForm);
 
     List<Student> selectList(Student student);
+
+    Student findBySno(Student student);
+
+    int insert(Student student);
 }

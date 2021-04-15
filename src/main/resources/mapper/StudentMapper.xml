@@ -9,7 +9,7 @@
     </select>
     
     <select id="selectList" parameterType="student" resultType="student">
-        select sid, name, gender, major, email, telephone, introduction from tb_student
+        select sid, sno, name, gender, major, email, telephone, introduction from tb_student
         <where>
             <if test="major!=null and major!=''">
                 AND major = #{major}
@@ -19,4 +19,13 @@
             </if>
         </where>
     </select>
+
+    <select id="findBySno" parameterType="student" resultType="student">
+        select * from tb_student where sno = #{sno}
+    </select>
+
+    <insert id="insert" parameterType="student">
+        INSERT INTO tb_student(sno, name, gender, password, portrait_path, email, telephone, major)
+        VALUES (#{sno}, #{name}, #{gender}, #{password}, #{portrait_path}, #{email}, #{telephone},  #{major})
+    </insert>
 </mapper>

@@ -9,4 +9,8 @@ public interface StudentService {
     public Student login(LoginForm loginForm);
 
     List<Student> selectList(Student student);
+
+    Student fingBySno(Student student);
+
+    int insert(Student student);
 }
