@@ -1,7 +1,7 @@
 package com.via.domain;
 
 public class Admin {
-    private int id;  // 管理员id
+    private Integer id;  // 管理员id
     private String name;  // 管理员姓名
     private String gender;  // 管理员性别
     private String password;  // 管理员密码
@@ -9,11 +9,11 @@ public class Admin {
     private String telephone;  // 管理员电话
     private String portrait_path;  // 管理员头像路径（默认为NULL）
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

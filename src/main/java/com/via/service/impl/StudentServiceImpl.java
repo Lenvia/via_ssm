@@ -27,12 +27,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student fingBySno(Student student) {
+    public List<Student> findByEmail(Student student) {
+        return studentMapper.findByEmail(student);
+    }
+
+    @Override
+    public Student findBySno(Student student) {
         return studentMapper.findBySno(student);
     }
 
     @Override
     public int insert(Student student) {
         return studentMapper.insert(student);
+    }
+
+    @Override
+    public int update(Student student) {
+        return studentMapper.update(student);
     }
 }

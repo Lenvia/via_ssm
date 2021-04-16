@@ -10,7 +10,11 @@ public interface StudentService {
 
     List<Student> selectList(Student student);
 
-    Student fingBySno(Student student);
+    List<Student> findByEmail(Student student);
+
+    Student findBySno(Student student);
 
     int insert(Student student);
+
+    int update(Student student);
 }

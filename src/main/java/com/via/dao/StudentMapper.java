@@ -13,4 +13,8 @@ public interface StudentMapper {
     Student findBySno(Student student);
 
     int insert(Student student);
+
+    List<Student> findByEmail(Student student);
+
+    int update(Student student);
 }

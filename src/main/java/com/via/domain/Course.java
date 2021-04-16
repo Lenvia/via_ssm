@@ -1,17 +1,17 @@
 package com.via.domain;
 
 public class Course {
-    private int cid;  // 课程id
+    private Integer cid;  // 课程id
     private String cname;  // 课程名
     private String type;  // 课程类型（限制选择）
-    private int credit;  // 学分
-    private int semester;  // 开设学期（限制选择）
+    private Integer credit;  // 学分
+    private Integer semester;  // 开设学期（限制选择）
 
-    public int getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 
@@ -31,19 +31,19 @@ public class Course {
         this.type = type;
     }
 
-    public int getCredit() {
+    public Integer getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(Integer credit) {
         this.credit = credit;
     }
 
-    public int getSemester() {
+    public Integer getSemester() {
         return semester;
     }
 
-    public void setSemester(int semester) {
+    public void setSemester(Integer semester) {
         this.semester = semester;
     }
 

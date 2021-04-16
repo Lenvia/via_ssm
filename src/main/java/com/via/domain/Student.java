@@ -1,7 +1,7 @@
 package com.via.domain;
 
 public class Student {
-    private int sid;  // 学生id
+    private Integer sid;  // 学生id
     private String sno;  // 学号
     private String name;  // 学生姓名
     private String gender;  // 学生性别
@@ -17,11 +17,11 @@ public class Student {
         this.major = major;
     }
 
-    public int getSid() {
+    public Integer getSid() {
         return sid;
     }
 
-    public void setSid(int sid) {
+    public void setSid(Integer sid) {
         this.sid = sid;
     }
 

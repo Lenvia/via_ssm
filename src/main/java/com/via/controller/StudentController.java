@@ -29,13 +29,26 @@ public class StudentController {
 
     @PostMapping("/getStudentList")
     @ResponseBody  // 记得加啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
-    public Map<String, Object> getStudentList(Integer page, Integer rows, String studentname, String majorname){
+    public Map<String, Object> getStudentList(HttpServletRequest request, Integer page, Integer rows, String studentname, String majorname){
         // 存储查询的studentname, majorname信息
         Student student = new Student(studentname, majorname);
         // 设置每页的记录数
         PageHelper.startPage(page, rows);
-        // 根据专业与学生名获取指定或全部学生信息列表
-        List<Student> list = studentService.selectList(student);
+
+        Integer userType = (Integer) request.getSession().getAttribute("userType");
+
+        List<Student> list;
+
+        if(userType == 1){  // 管理员
+            // 根据专业与学生名获取指定或全部学生信息列表
+            list = studentService.selectList(student);
+        }
+        else{  // 学生只能获取他自己的
+            student = (Student) request.getSession().getAttribute("userInfo");
+            list = studentService.findByEmail(student);
+        }
+
+        // System.out.println(list);
 
         // 封装信息列表
         PageInfo<Student> pageInfo = new PageInfo<>(list);
@@ -44,7 +57,7 @@ public class StudentController {
         // 获取当页数据列表
         List<Student> studentList = pageInfo.getList();
 
-        System.out.println(studentList);
+        // System.out.println(studentList);
 
         // 存储数据对象
         result.put("total", total);
@@ -57,7 +70,7 @@ public class StudentController {
     @ResponseBody
     public Map<String, Object> addStudent(Student student) {
         //判断学号是否已存在
-        if (studentService.fingBySno(student) != null) {
+        if (studentService.findBySno(student) != null) {
             result.put("success", false);
             result.put("msg", "该学号已经存在! 请修改后重试!");
             return result;
@@ -72,6 +85,22 @@ public class StudentController {
 
         return result;
     }
+
+    @PostMapping("/editStudent")
+    @ResponseBody
+    public Map<String, Object> editStudent(Student student) {
+        // System.out.println(student);
+        // 更新学生信息
+        if (studentService.update(student) > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("msg", "更新失败! (ಥ_ಥ)服务器端发生异常!");
+        }
+
+        return result;
+    }
+
 
     @GetMapping("/goStudentListView")
     public String goStudentListView(){
