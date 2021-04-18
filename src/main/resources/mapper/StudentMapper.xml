@@ -9,7 +9,7 @@
     </select>
     
     <select id="selectList" parameterType="student" resultType="student">
-        select sid, sno, name, gender, major, email, telephone, introduction from tb_student
+        select sid, sno, name, gender, major, email, telephone, introduction, portrait_path from tb_student
         <where>
             <if test="major!=null and major!=''">
                 AND major = #{major}

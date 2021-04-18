@@ -30,6 +30,7 @@ public class StudentController {
     @PostMapping("/getStudentList")
     @ResponseBody  // 记得加啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
     public Map<String, Object> getStudentList(HttpServletRequest request, Integer page, Integer rows, String studentname, String majorname){
+        // System.out.println(studentname+"  "+majorname);
         // 存储查询的studentname, majorname信息
         Student student = new Student(studentname, majorname);
         // 设置每页的记录数

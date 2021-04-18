@@ -77,7 +77,7 @@
             $('#search-btn').click(function () {
                $('#dataList').datagrid('load', {
                    studentname: $('#search-studentname').val(),  // 获取学生名称
-                   marjorname: $('#search-majorname').combobox('getValue'),  // 获取学生专业
+                   majorname: $('#search-majorname').combobox('getValue'),  // 获取学生专业
                });
             });
 
@@ -247,7 +247,8 @@
                     //通过获取头像路径来显示该学生的头像
                     $("#edit-portrait").attr('src', selectRow.portrait_path);
 
-                    console.log(selectRow.portrait_path);
+                    console.log(selectRow);
+                    // console.log(selectRow.portrait_path);
 
                     //初始化头像路径(已优化:在执行SQL语句时通过判断头像路径是否为空,为空则代表用户并未修改头像)
                     //$("#edit_portrait-path").val(selectRow.portrait_path);
