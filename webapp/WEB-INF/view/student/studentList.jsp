@@ -81,26 +81,59 @@
                });
             });
 
-            //信息添加按钮事件
+            // 信息添加按钮事件
             $("#add").click(function () {
                 table = $("#addTable");
                 $("#addTable").form("clear");//清空表单数据
                 $("#addDialog").dialog("open");//打开添加窗口
             });
 
-            //信息添加按钮事件
+            // 信息添加按钮事件
             $("#edit").click(function () {
                 table = $("#editTable");
                 var selectRows = $("#dataList").datagrid("getSelections");
                 if(selectRows.length !== 1){
-                    $.messageer.alert("消息提醒", "请选择想要修改的数据（限一行）!", "warning");
+                    $.messager.alert("消息提醒", "请选择想要修改的数据（限一行）!", "warning");
                 }
                 else{
                     $("#editDialog").dialog("open");//打开添加窗口
                 }
-
-
             });
+
+            // 信息删除按钮事件
+            $("#delete").click(function(){
+                var selectRows = $("#dataList").datagrid("getSelections");
+                var selectLength = selectRows.length;
+                if(selectLength.length === 0){
+                    $.messager.alert("消息提醒", "请选择想要删除的数据!", "warning");
+                }
+                else{
+                    var ids = [];
+                    $(selectRows).each(i, row){
+                        ids[i] = row.id;
+                    }
+                    $.messager.confirm("消息提醒", "删除后将无法恢复，是否确认？", function(r){
+                        if(r){
+                            $.ajax({
+                                type: "post",
+                                url: "deleteStudent?t" + new Data().getTime(),
+                                data: {"ids":ids},
+                                dataType: 'json',
+                                success: function(data){
+                                    if(data.success){  // controller 返回的数据
+                                        $.messager.alert("消息提醒", "删除成功！", "warning");
+                                        $('#dataList').datagrid("reload");
+                                        $('#dataList').datagrid("uncheckAll");
+                                    }
+                                    else{
+                                        $.messager.alert("消息提醒", data.msg, "warning");
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            })
 
 
             //设置添加学生信息窗口
@@ -459,6 +492,7 @@
             <!-- 存储所上传的头像路径 -->
             <input id="edit_portrait-path" type="hidden" name="portrait_path"/>
 
+            <%-- 学生是不能修改姓名，性别，专业，学号这些固有属性的--%>
             <c:if test="${userType == 1}">
             <tr>
                 <td>姓名</td>

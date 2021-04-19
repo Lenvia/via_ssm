@@ -5,4 +5,10 @@ import com.via.domain.LoginForm;
 
 public interface AdminService {
     public Admin login(LoginForm loginForm);
+
+    List<Admin> selectList(Admin admin);
+
+    List<Admin> findByEmail(Admin admin);
+
+    int insert(Admin admin);
 }

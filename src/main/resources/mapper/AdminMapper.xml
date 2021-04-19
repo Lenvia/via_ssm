@@ -8,4 +8,22 @@
         select * from tb_admin
         where email=#{email} and password = #{password}
     </select>
+
+    <select id="selectList" parameterType="admin" resultType="admin">
+        select id, name, gender, email, telephone, portrait_path from tb_admin
+        <where>
+            <if test="name!=null and name!=''">
+                AND name LIKE concat(concat('%', #{name}), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findByEmail" parameterType="admin" resultType="admin">
+        select * from tb_admin where email = #{email}
+    </select>
+
+    <insert id="insert" parameterType="admin">
+        insert into tb_admin(id, name, gender, password, email, telephone, protrait_path)
+        values(#{id}, #{name}, #{gender}, #{password}, #{email}, #{telephone}, #{protrait_path})
+    </insert>
 </mapper>

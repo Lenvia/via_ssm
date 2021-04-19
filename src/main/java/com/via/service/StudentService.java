@@ -17,4 +17,6 @@ public interface StudentService {
     int insert(Student student);
 
     int update(Student student);
+
+    int deleteById(Integer[] ids);
 }

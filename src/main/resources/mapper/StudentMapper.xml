@@ -49,4 +49,11 @@
         WHERE sid = #{sid}
 
     </update>
+
+    <delete id="deleteById">
+        delete from tb_student where id in
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

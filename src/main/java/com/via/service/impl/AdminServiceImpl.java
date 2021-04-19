@@ -19,4 +19,20 @@ public class AdminServiceImpl implements AdminService {
     public Admin login(LoginForm loginForm) {
         return adminMapper.login(loginForm);
     }
+
+    @Override
+    public List<Admin> selectList(Admin admin){
+        return adminMapper.selectList(admin);
+    }
+
+    @Override
+    public List<Admin> findByEmail(Admin admin){
+        return adminMapper.findByEmail(admin);
+    }
+
+    @Override
+    public int insert(Admin admin){
+        return adminMapper.insert(admin);
+    }
+
 }

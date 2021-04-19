@@ -81,7 +81,7 @@ public class StudentController {
             result.put("success", true);
         } else {
             result.put("success", false);
-            result.put("msg", "添加失败! (ಥ_ಥ)服务器端发生异常!");
+            result.put("msg", "添加失败! 服务器端发生异常!");
         }
 
         return result;
@@ -93,6 +93,19 @@ public class StudentController {
         // System.out.println(student);
         // 更新学生信息
         if (studentService.update(student) > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("msg", "更新失败! (ಥ_ಥ)服务器端发生异常!");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/deleteStudent")
+    @ResponseBody
+    public Map<String, Object>delectStudent(@RequestParam(value="ids[]", required="true") Integer[] ids){
+        if(studentService.deleteById(ids) > 0){
             result.put("success", true);
         } else {
             result.put("success", false);

@@ -17,4 +17,6 @@ public interface StudentMapper {
     List<Student> findByEmail(Student student);
 
     int update(Student student);
+
+    int deleteById(Integer[] ids);
 }
