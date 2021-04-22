@@ -7,10 +7,7 @@ import com.via.service.StudentService;
 import com.via.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -104,12 +101,13 @@ public class StudentController {
 
     @PostMapping("/deleteStudent")
     @ResponseBody
-    public Map<String, Object>delectStudent(@RequestParam(value="ids[]", required="true") Integer[] ids){
+    public Map<String, Object>deleteStudent(@RequestParam(value = "ids[]", required = true) Integer[] ids){
+        // System.out.println(ids);
         if(studentService.deleteById(ids) > 0){
             result.put("success", true);
         } else {
             result.put("success", false);
-            result.put("msg", "更新失败! (ಥ_ಥ)服务器端发生异常!");
+            result.put("msg", "更新失败! 服务器端发生异常!");
         }
 
         return result;

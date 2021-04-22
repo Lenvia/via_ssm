@@ -51,7 +51,7 @@
     </update>
 
     <delete id="deleteById">
-        delete from tb_student where id in
+        delete from tb_student where sid in
         <foreach collection="array" item="ids" open="(" separator="," close=")">
             #{ids}
         </foreach>

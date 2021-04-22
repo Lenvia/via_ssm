@@ -101,27 +101,29 @@
             });
 
             // 信息删除按钮事件
-            $("#delete").click(function(){
-                var selectRows = $("#dataList").datagrid("getSelections");
+            $("#delete").click(function () {
+                var selectRows = $("#dataList").datagrid("getSelections");//返回所有选中的行,当没有选中的记录时,将返回空数组
                 var selectLength = selectRows.length;
-                if(selectLength.length === 0){
-                    $.messager.alert("消息提醒", "请选择想要删除的数据!", "warning");
+                if (selectLength === 0) {
+                    $.messager.alert("消息提醒", "请选择想要删除的数据哟!", "warning");
                 }
-                else{
+                else {
                     var ids = [];
-                    $(selectRows).each(i, row){
-                        ids[i] = row.id;
-                    }
+                    $(selectRows).each(function (i, row){
+                        ids[i] = row.sid;  // 这里要和columns里写的一样啊啊啊啊啊啊啊啊啊，之前写的row.id卡了半天！！！！！
+                    });
+
                     $.messager.confirm("消息提醒", "删除后将无法恢复，是否确认？", function(r){
                         if(r){
+                            console.log(ids);
                             $.ajax({
                                 type: "post",
-                                url: "deleteStudent?t" + new Data().getTime(),
-                                data: {"ids":ids},
+                                url: "deleteStudent?t" + new Date().getTime(),
+                                data: {ids:ids},
                                 dataType: 'json',
                                 success: function(data){
                                     if(data.success){  // controller 返回的数据
-                                        $.messager.alert("消息提醒", "删除成功！", "warning");
+                                        $.messager.alert("消息提醒", "删除成功！", "info");
                                         $('#dataList').datagrid("reload");
                                         $('#dataList').datagrid("uncheckAll");
                                     }
@@ -129,11 +131,11 @@
                                         $.messager.alert("消息提醒", data.msg, "warning");
                                     }
                                 }
-                            })
+                            });
                         }
-                    })
+                    });
                 }
-            })
+            });
 
 
             //设置添加学生信息窗口

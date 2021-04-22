@@ -9,10 +9,6 @@ public class Admin {
     private String telephone;  // 管理员电话
     private String portrait_path;  // 管理员头像路径（默认为NULL）
 
-    public Admin(String name){
-        this.name = name;
-    }
-
     public Integer getId() {
         return id;
     }
