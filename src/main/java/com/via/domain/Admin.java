@@ -7,6 +7,7 @@ public class Admin {
     private String password;  // 管理员密码
     private String email;  // 管理员邮箱（唯一）
     private String telephone;  // 管理员电话
+    private String introduction;  // 介绍
     private String portrait_path;  // 管理员头像路径（默认为NULL）
 
     public Integer getId() {
@@ -57,6 +58,14 @@ public class Admin {
         this.telephone = telephone;
     }
 
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     public String getPortrait_path() {
         return portrait_path;
     }
@@ -74,6 +83,7 @@ public class Admin {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", introduction='" + introduction + '\'' +
                 ", portrait_path='" + portrait_path + '\'' +
                 '}';
     }
