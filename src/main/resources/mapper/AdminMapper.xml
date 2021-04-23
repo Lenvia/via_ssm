@@ -23,7 +23,29 @@
     </select>
 
     <insert id="insert" parameterType="admin">
-        insert into tb_admin(id, name, gender, password, email, telephone, introduction, protrait_path)
-        values(#{id}, #{name}, #{gender}, #{password}, #{email}, #{telephone},#{introduction}, #{protrait_path})
+        insert into tb_admin(id, name, gender, password, email, telephone, introduction, portrait_path)
+        values(#{id}, #{name}, #{gender}, #{password}, #{email}, #{telephone},#{introduction}, #{portrait_path})
     </insert>
+
+    <update id="update" parameterType="admin">
+        UPDATE tb_admin
+        <set>
+            <if test="name!=null and name!=''">name=#{name},</if>
+            <if test="gender!=null and gender!=''">gender=#{gender},</if>
+
+            <if test="email!=null and email!=''">email=#{email},</if>
+            <if test="password!=null and password!=''">password=#{password},</if>
+            <if test="introduction!=null and introduction!=''">introduction=#{introduction},</if>
+            <if test="portrait_path!=null and portrait_path!=''">portrait_path=#{portrait_path},</if>
+        </set>
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="deleteById">
+        delete from tb_admin where id in
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

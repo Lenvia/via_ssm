@@ -88,7 +88,7 @@
                 $("#addDialog").dialog("open");//打开添加窗口
             });
 
-            // 信息添加按钮事件
+            // 信息修改按钮事件
             $("#edit").click(function () {
                 table = $("#editTable");
                 var selectRows = $("#dataList").datagrid("getSelections");
@@ -191,6 +191,7 @@
                             $("#add_password").textbox('setValue', "");
                             $("#add_email").textbox('setValue', "");
                             $("#add_telephone").textbox('setValue', "");
+                            $("#add_introduction").textbox('setValue', "");
                         }
                     }
                 ]
@@ -282,11 +283,11 @@
                     //通过获取头像路径来显示该学生的头像
                     $("#edit-portrait").attr('src', selectRow.portrait_path);
 
-                    console.log(selectRow);
+                    // console.log(selectRow);
                     // console.log(selectRow.portrait_path);
 
                     //初始化头像路径(已优化:在执行SQL语句时通过判断头像路径是否为空,为空则代表用户并未修改头像)
-                    //$("#edit_portrait-path").val(selectRow.portrait_path);
+                    //$("#edit_portrait_path").val(selectRow.portrait_path);
                 }
             });
 
@@ -323,7 +324,7 @@
                 $("#edit-portrait").attr("src", data.portrait_path);
                 //将头像路径存储到学生信息表单中(利用从用户信息中读取头像路径来显示头像)
                 $("#add_portrait_path").val(data.portrait_path);
-                $("#edit_portrait-path").val(data.portrait_path);
+                $("#edit_portrait_path").val(data.portrait_path);
             } else {
                 $.messager.alert("提示", data.msg, "warning");
             }
@@ -401,7 +402,7 @@
     <form id="addForm" method="post" action="#">
         <table id="addTable" style="border-collapse:separate; border-spacing:0 3px;" cellpadding="6">
             <!-- 存储所上传的头像路径（值由controller返回） -->
-            <input id="add_portrait-path" type="hidden" name="portrait_path"/>
+            <input id="add_portrait_path" type="hidden" name="portrait_path"/>
 
 
             <tr>
@@ -467,6 +468,14 @@
                                        data-options="required:true, missingMessage:'请填写联系方式哟~'"/>
                 </td>
             </tr>
+            <tr>
+                <td>简介</td>
+                <td colspan="4"><input id="add_introduction" style="width: 200px; height: 60px;"
+                                       class="easyui-textbox"
+                                       type="text" name="introduction"
+                                       data-options="multiline:true,required:false"/>
+                </td>
+            </tr>
         </table>
     </form>
 </div>
@@ -492,7 +501,7 @@
         <input type="hidden" id="edit_id" name="sid"/>
         <table id="editTable" style="border-collapse:separate; border-spacing:0 3px;" cellpadding="6">
             <!-- 存储所上传的头像路径 -->
-            <input id="edit_portrait-path" type="hidden" name="portrait_path"/>
+            <input id="edit_portrait_path" type="hidden" name="portrait_path"/>
 
             <%-- 学生是不能修改姓名，性别，专业，学号这些固有属性的--%>
             <c:if test="${userType == 1}">
@@ -558,7 +567,7 @@
                 <td colspan="4"><input id="edit_introduction" style="width: 200px; height: 60px;"
                                        class="easyui-textbox"
                                        type="text" name="introduction"
-                                       data-options="multiline:true,required:true, missingMessage:'记得填写个人简介呦~'"/>
+                                       data-options="multiline:true,required:false, missingMessage:'记得填写个人简介呦~'"/>
                 </td>
             </tr>
         </table>

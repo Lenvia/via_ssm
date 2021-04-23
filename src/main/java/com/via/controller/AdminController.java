@@ -3,14 +3,15 @@ package com.via.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.via.domain.Admin;
+import com.via.domain.Admin;
 import com.via.service.AdminService;
+import com.via.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,5 +73,43 @@ public class AdminController {
         return result;
     }
 
+    @PostMapping("/editAdmin")
+    @ResponseBody
+    public Map<String, Object> editAdmin(Admin admin) {
+        // System.out.println(admin);
+        if (adminService.update(admin) > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("msg", "更新失败! (ಥ_ಥ)服务器端发生异常!");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/deleteAdmin")
+    @ResponseBody
+    public Map<String, Object>deleteAdmin(@RequestParam(value = "ids[]", required = true) Integer[] ids){
+        // System.out.println(ids);
+        if(adminService.deleteById(ids) > 0){
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("msg", "更新失败! 服务器端发生异常!");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/uploadPhoto")
+    @ResponseBody
+    public Map<String, Object> uploadPhoto(MultipartFile photo, HttpServletRequest request) {
+        //存储头像的本地目录
+        final String dirPath = request.getServletContext().getRealPath("/upload/admin_portrait/");
+        //存储头像的项目发布目录
+        final String portraitPath = request.getServletContext().getContextPath() + "/upload/admin_portrait/";
+        //返回头像的上传结果
+        return UploadFile.getUploadResult(photo, dirPath, portraitPath);
+    }
 
 }

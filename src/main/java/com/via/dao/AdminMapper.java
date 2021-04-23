@@ -11,7 +11,11 @@ public interface AdminMapper {
 
     List<Admin> selectList(Admin admin);
 
-    List<Admin> findByEmail(Admin admin);
+    Admin findByEmail(Admin admin);
 
     int insert(Admin admin);
+
+    int update(Admin admin);
+
+    int deleteById(Integer[] ids);
 }

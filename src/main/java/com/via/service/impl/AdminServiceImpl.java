@@ -28,13 +28,23 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Admin> findByEmail(Admin admin){
+    public Admin findByEmail(Admin admin){
         return adminMapper.findByEmail(admin);
     }
 
     @Override
     public int insert(Admin admin){
         return adminMapper.insert(admin);
+    }
+
+    @Override
+    public int update(Admin admin) {
+        return adminMapper.update(admin);
+    }
+
+    @Override
+    public int deleteById(Integer[] ids) {
+        return adminMapper.deleteById(ids);
     }
 
 }
