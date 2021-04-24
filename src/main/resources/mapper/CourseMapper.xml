@@ -2,5 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.via.dao.CourseMapper">
-    
+    <select id="selectList" parameterType="course" resultType="course">
+        select * from tb_course
+        <where>
+            <if test="type!=null and type!=''">
+                AND type = #{type}
+            </if>
+            <if test="name!=null and name!=''">
+                AND name LIKE concat(concat('%', #{name}), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findByCno" parameterType="course" resultType="course">
+        select * from tb_course where cno = #{cno}
+    </select>
+
+    <insert id="insert" parameterType="course">
+        INSERT INTO tb_course(cno, name, type, credit, semester)
+        VALUES (#{cno}, #{name}, #{type}, #{credit}, #{semester})
+    </insert>
+
+    <update id="update" parameterType="course">
+        UPDATE tb_course
+        <set>
+            <if test="name!=null and name!=''">name=#{name},</if>
+            <if test="cno!=null and cno!=''">cno=#{cno},</if>
+            <if test="type!=null and type!=''">type=#{type},</if>
+            <if test="credit!=null and credit!=''">credit=#{credit},</if>
+            <if test="semester!=null and semester!=''">semester=#{semester},</if>
+        </set>
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="deleteById">
+        delete from tb_course where id in
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

@@ -2,7 +2,8 @@ package com.via.domain;
 
 public class Course {
     private Integer id;  // 课程id
-    private String cname;  // 课程名
+    private String cno;  // 课程编号
+    private String name;  // 课程名
     private String type;  // 课程类型（限制选择）
     private Integer credit;  // 学分
     private Integer semester;  // 开设学期（限制选择）
@@ -15,12 +16,20 @@ public class Course {
         this.id = id;
     }
 
-    public String getCname() {
-        return cname;
+    public String getCno() {
+        return cno;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setCno(String cno) {
+        this.cno = cno;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {
@@ -51,7 +60,8 @@ public class Course {
     public String toString() {
         return "Course{" +
                 "id=" + id +
-                ", cname='" + cname + '\'' +
+                ", cno='" + cno + '\'' +
+                ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", credit=" + credit +
                 ", semester=" + semester +
