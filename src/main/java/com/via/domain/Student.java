@@ -1,7 +1,7 @@
 package com.via.domain;
 
 public class Student {
-    private Integer sid;  // 学生id
+    private Integer id;  // 学生id
     private String sno;  // 学号
     private String name;  // 学生姓名
     private String gender;  // 学生性别
@@ -17,12 +17,12 @@ public class Student {
         this.major = major;
     }
 
-    public Integer getSid() {
-        return sid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSid(Integer sid) {
-        this.sid = sid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSno() {
@@ -100,7 +100,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "sid=" + sid +
+                "id=" + id +
                 ", sno='" + sno + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +

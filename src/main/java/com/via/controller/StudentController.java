@@ -3,6 +3,7 @@ package com.via.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.via.domain.Student;
+import com.via.service.MajorService;
 import com.via.service.StudentService;
 import com.via.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private MajorService majorService;
 
     @PostMapping("/getStudentList")
     @ResponseBody  // 记得加啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
@@ -115,8 +119,11 @@ public class StudentController {
 
 
     @GetMapping("/goStudentListView")
-    public String goStudentListView(){
-        return "student/studentList";
+    public ModelAndView goStudentListView(ModelAndView modelAndView){
+        //向页面发送一个存储着Clazz的List对象
+        modelAndView.addObject("majorList", majorService.selectAll());
+        modelAndView.setViewName("student/studentList");
+        return modelAndView;
     }
 
     @PostMapping("/uploadPhoto")

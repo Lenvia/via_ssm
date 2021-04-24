@@ -1,18 +1,18 @@
 package com.via.domain;
 
 public class Course {
-    private Integer cid;  // 课程id
+    private Integer id;  // 课程id
     private String cname;  // 课程名
     private String type;  // 课程类型（限制选择）
     private Integer credit;  // 学分
     private Integer semester;  // 开设学期（限制选择）
 
-    public Integer getCid() {
-        return cid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCname() {
@@ -50,7 +50,7 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "cid=" + cid +
+                "id=" + id +
                 ", cname='" + cname + '\'' +
                 ", type='" + type + '\'' +
                 ", credit=" + credit +

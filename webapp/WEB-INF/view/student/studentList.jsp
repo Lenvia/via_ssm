@@ -40,16 +40,16 @@
                 fit: true,  // 自动大小
                 method: "post",
                 url: "getStudentList?t" + new Date().getTime(),
-                idField: 'sid',
+                idField: 'id',
                 singleSelect: false,  // 是否单选
                 rownumbers: true,  // 行号
                 pagination: true,  // 分页控件
-                sortName: 'sid',
+                sortName: 'id',
                 sortOrder: 'DESC',
                 remoteSort: false,
                 columns: [[
                     {field: 'chk', checkbox:true, width:50},
-                    {field: 'sid', title:'ID', width: 50, sortable: true},
+                    {field: 'id', title:'ID', width: 50, sortable: true},
                     {field: 'sno', title:'学号', width:150},
                     {field: 'name', title:'姓名', width: 150},
                     {field: 'major', title:'专业', width: 200},
@@ -110,7 +110,7 @@
                 else {
                     var ids = [];
                     $(selectRows).each(function (i, row){
-                        ids[i] = row.sid;  // 这里要和columns里写的一样啊啊啊啊啊啊啊啊啊，之前写的row.id卡了半天！！！！！
+                        ids[i] = row.id;  // 这里要和columns里写的一样啊啊啊啊啊啊啊啊啊，之前写的row.id卡了半天！！！！！
                     });
 
                     $.messager.confirm("消息提醒", "删除后将无法恢复，是否确认？", function(r){
@@ -266,7 +266,7 @@
                     var selectRow = $("#dataList").datagrid("getSelected");
 
 
-                    $("#edit_id").val(selectRow.sid);//初始化id值,需根据id更新学生信息
+                    $("#edit_id").val(selectRow.id);//初始化id值,需根据id更新学生信息
 
 
                     <c:if test="${userType == 1}">
@@ -363,12 +363,10 @@
         <a href="javascript:" class="easyui-linkbutton"
            data-options="iconCls:'icon-class',plain:true">所在专业</a>
         <select id="search-majorname" style="width: 155px;" class="easyui-combobox" name="majorname">
-            <option value="">未选择专业</option>
-            <option value="cs">计算机科学与技术</option>
-            <option value="se">软件工程</option>
-            <option value="math">数学</option>
-            <option value="phy">物理</option>
-            <option value="chem">化学</option>
+            <option value="">未指定专业</option>
+            <c:forEach items="${majorList}" var="major">
+                <option value="${major.abbreviation}">${major.name}</option>
+            </c:forEach>
         </select>
         <!-- 学生姓名搜索框 -->
         <a href="javascript:" class="easyui-linkbutton"
@@ -429,11 +427,9 @@
                 <td colspan="1">
                     <select id="add_major" style="width: 200px; height: 30px;" class="easyui-combobox"
                             name="major" data-options="required:true, missingMessage:'请选择所属专业~'">
-                        <option value="cs">计算机科学与技术</option>
-                        <option value="se">软件工程</option>
-                        <option value="math">数学</option>
-                        <option value="phy">物理</option>
-                        <option value="chem">化学</option>
+                        <c:forEach items="${majorList}" var="major">
+                            <option value="${major.abbreviation}">${major.name}</option>
+                        </c:forEach>
                     </select>
                 </td>
             </tr>
@@ -498,7 +494,7 @@
     <!-- 学生信息表单 -->
     <form id="editForm" method="post" action="#">
         <!-- 获取被修改信息的学生id -->
-        <input type="hidden" id="edit_id" name="sid"/>
+        <input type="hidden" id="edit_id" name="id"/>
         <table id="editTable" style="border-collapse:separate; border-spacing:0 3px;" cellpadding="6">
             <!-- 存储所上传的头像路径 -->
             <input id="edit_portrait_path" type="hidden" name="portrait_path"/>
@@ -528,11 +524,9 @@
                 <td colspan="1">
                     <select id="edit_major" style="width: 200px; height: 30px;" class="easyui-combobox"
                             name="major">
-                        <option value="cs">计算机科学与技术</option>
-                        <option value="se">软件工程</option>
-                        <option value="math">数学</option>
-                        <option value="phy">物理</option>
-                        <option value="chem">化学</option>
+                        <c:forEach items="${majorList}" var="major">
+                            <option value="${major.abbreviation}">${major.name}</option>
+                        </c:forEach>
                     </select>
                 </td>
             </tr>

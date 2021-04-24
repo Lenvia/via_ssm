@@ -9,7 +9,7 @@
     </select>
     
     <select id="selectList" parameterType="student" resultType="student">
-        select sid, sno, name, gender, major, email, telephone, introduction, portrait_path from tb_student
+        select id, sno, name, gender, major, email, telephone, introduction, portrait_path from tb_student
         <where>
             <if test="major!=null and major!=''">
                 AND major = #{major}
@@ -46,12 +46,12 @@
             <if test="introduction!=null and introduction!=''">introduction=#{introduction},</if>
             <if test="portrait_path!=null and portrait_path!=''">portrait_path=#{portrait_path},</if>
         </set>
-        WHERE sid = #{sid}
+        WHERE id = #{id}
 
     </update>
 
     <delete id="deleteById">
-        delete from tb_student where sid in
+        delete from tb_student where id in
         <foreach collection="array" item="ids" open="(" separator="," close=")">
             #{ids}
         </foreach>
