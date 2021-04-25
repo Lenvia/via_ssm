@@ -19,4 +19,6 @@ public interface StudentMapper {
     int update(Student student);
 
     int deleteById(Integer[] ids);
+
+    List<Student> selectAll();
 }

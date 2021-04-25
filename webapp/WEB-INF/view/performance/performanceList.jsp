@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: yy
-  Date: 2021/4/14
-  Time: 下午10:55
+  Date: 2021/4/26
+  Time: 上午12:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta charset="UTF-8" content="#">
-    <title>课程信息管理页面</title>
+    <title>成绩管理页面</title>
     <!-- 引入CSS -->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/static/easyui/themes/default/easyui.css">
@@ -38,7 +38,7 @@
                 collapsible: false,  // 是否可折叠
                 fit: true,  // 自动大小
                 method: "post",
-                url: "getCourseList?t" + new Date().getTime(),
+                url: "getPerformanceList?t" + new Date().getTime(),
                 idField: 'id',
                 singleSelect: false,  // 是否单选
                 rownumbers: true,  // 行号
@@ -49,11 +49,12 @@
                 columns: [[
                     {field: 'chk', checkbox:true, width:50},
                     {field: 'id', title:'ID', width: 50, sortable: true, hidden:'true'},
+                    {field: 'sno', title:'学号', width:150},
+                    {field: 'sname', title:'学生姓名', width:150},
                     {field: 'cno', title:'课程代码', width:150},
-                    {field: 'name', title:'名称', width: 150},
-                    {field: 'type', title:'课程类别', width: 200},
-                    {field: 'credit', title:'学分', width: 50},
-                    {field: 'semester', title:'开设学期', width: 100},
+                    {field: 'cname', title:'课程名称', width:150},
+                    {field: 'score', title:'分数', width: 50},
+                    {field: 'pass', title:'通过', width: 50},
 
                 ]],
                 emptyMsg:'<span style=\"color:#ff0000\">无数据</span>',  //显示提示
@@ -74,8 +75,8 @@
 
             $('#search-btn').click(function () {
                 $('#dataList').datagrid('load', {
-                    coursename: $('#search-coursename').val(),  // 获取课程名
-                    typename: $('#search-typename').combobox('getValue'),  // 课程类别
+                    studentname: $('#search-studentname').val(),  // 学生姓名
+                    coursename: $('#search-coursename').val(),  // 课程名
                 });
             });
 
@@ -116,7 +117,7 @@
                             // console.log(ids);
                             $.ajax({
                                 type: "post",
-                                url: "deleteCourse?t" + new Date().getTime(),
+                                url: "deletePerformance?t" + new Date().getTime(),
                                 data: {ids:ids},
                                 dataType: 'json',
                                 success: function(data){
@@ -138,7 +139,7 @@
 
             //设置添加课程信息窗口
             $("#addDialog").dialog({  // 创建对话框（dialog
-                title: "添加课程",
+                title: "添加成绩",
                 width: 660,
                 height: 530,
                 iconCls: "icon-house",
@@ -162,7 +163,7 @@
                                 var data = $("#addForm").serialize();//序列化表单信息
                                 $.ajax({
                                     type: "post",
-                                    url: "addCourse?t"+ new Date().getTime(),
+                                    url: "addPerformance?t"+ new Date().getTime(),
                                     data: data,
                                     dataType: 'json',
                                     success: function (data) {
@@ -183,11 +184,10 @@
                         plain: true,
                         iconCls: 'icon-reload',
                         handler: function () {
-                            $("#add_name").textbox('setValue', "");
+                            $("#add_snp").textbox('setValue', "");
                             $("#add_cno").textbox('setValue', "");
-                            $("#add_type").textbox('setValue', "");
-                            $("#add_credit").textbox('setValue', "");
-                            $("#add_semester").textbox('setValue', "");
+                            $("#add_score").textbox('setValue', "");
+                            $("#add_pass").textbox('setValue', "");
                         }
                     }
                 ]
@@ -195,7 +195,7 @@
 
             //设置编辑课程信息窗口
             $("#editDialog").dialog({
-                title: "修改课程信息窗口",
+                title: "修改成绩",
                 width: 660,
                 height: 500,
                 iconCls: "icon-house",
@@ -218,7 +218,7 @@
                                 var data = $("#editForm").serialize();//序列化表单信息
                                 $.ajax({
                                     type: "post",
-                                    url: "editCourse?t=" + new Date().getTime(),
+                                    url: "editPerformance?t=" + new Date().getTime(),
                                     data: data,
                                     dataType: 'json',
                                     success: function (data) {
@@ -243,11 +243,10 @@
                         plain: true,
                         iconCls: 'icon-reload',
                         handler: function () {
-                            $("#edit_name").textbox('setValue', "");
+                            $("#edit_sno").textbox('setValue', "");
                             $("#edit_cno").textbox('setValue', "");
-                            $("#edit_type").textbox('setValue', "");
-                            $("#edit_credit").textbox('setValue', "");
-                            $("#edit_semester").textbox('setValue', "");
+                            $("#edit_score").textbox('setValue', "");
+                            $("#edit_pass").textbox('setValue', "");
                         }
                     }
                 ],
@@ -257,13 +256,11 @@
 
                     $("#edit_id").val(selectRow.id);  // 初始化id值,需根据id更新课程信息
 
-                    // console.log(selectRow.id);
-
+                    $("#edit_sno").textbox('setValue', selectRow.sno);
                     $("#edit_cno").textbox('setValue', selectRow.cno);
-                    $("#edit_name").textbox('setValue', selectRow.name);
-                    $("#edit_type").textbox('setValue', selectRow.type);
-                    $("#edit_credit").textbox('setValue', selectRow.credit);
-                    $("#edit_semester").textbox('setValue', selectRow.semester);
+
+                    $("#edit_score").textbox('setValue', selectRow.score);
+                    $("#edit_pass").textbox('setValue', selectRow.pass);
 
                 }
             });
@@ -275,7 +272,7 @@
 </head>
 <body>
 
-<!-- 课程列表信息 -->
+<!-- 成绩列表信息 -->
 <table id="dataList" cellspacing="0" cellpadding="0"></table>
 <!-- 工具栏 -->
 <div id="toolbar">
@@ -288,7 +285,7 @@
 
 
         <div style="float: left;"><a id="edit" href="javascript:" class="easyui-linkbutton"
-                                 data-options="iconCls:'icon-edit',plain:true">修改</a></div>
+                                     data-options="iconCls:'icon-edit',plain:true">修改</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
 
         <div style="float: left;"><a id="delete" href="javascript:" class="easyui-linkbutton"
@@ -296,24 +293,22 @@
 
     </c:if>
 
-    <!-- 课程类别搜索域 -->
+    <!-- 学生信息搜索域 -->
     <div style="margin-left: 10px;">
-        <div style="float: left;" class="datagrid-btn-separator"></div>
-        <!-- 课程类别下拉框 -->
-        <a href="javascript:" class="easyui-linkbutton"
-           data-options="iconCls:'icon-filter',plain:true">课程类别</a>
-        <select id="search-typename" style="width: 155px;" class="easyui-combobox" name="typename">
-            <option value="">所有类别</option>
-            <option value="common">学科基础</option>
-            <c:forEach items="${majorList}" var="major">
-                <option value="${major.abbreviation}">${major.name}</option>
-            </c:forEach>
-        </select>
+        <c:if test="${userType == 1}">
+            <div style="float: left;" class="datagrid-btn-separator"></div>
+            <!-- 学生姓名搜索框 -->
+            <a href="javascript:" class="easyui-linkbutton"
+               data-options="iconCls:'icon-user-class',plain:true">学生姓名</a>
+            <input id="search-studentname" class="easyui-textbox" name="studentname"/>
+        </c:if>
 
         <!-- 课程名称搜索框 -->
         <a href="javascript:" class="easyui-linkbutton"
            data-options="iconCls:'icon-user-class',plain:true">课程名称</a>
         <input id="search-coursename" class="easyui-textbox" name="coursename"/>
+
+
         <!-- 搜索按钮 -->
         <a id="search-btn" href="javascript:" class="easyui-linkbutton"
            data-options="iconCls:'icon-search',plain:true">搜索</a>
@@ -322,56 +317,53 @@
 </div>
 
 <!-- 添加信息窗口 -->
-<!-- 只有管理员能添加课程信息-->
+<!-- 只有管理员能添加成绩信息-->
 <div id="addDialog" style="padding: 15px 0 0 55px;">
     <!-- 课程信息表单 -->
     <form id="addForm" method="post" action="#">
         <table id="addTable" style="border-collapse:separate; border-spacing:0 3px;" cellpadding="6">
 
             <tr>
-                <td>名称</td>
+                <td>学号</td>
                 <td colspan="1">
-                    <input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="name" data-options="required:true, missingMessage:'请填写课程名称~'"/>
+                    <input id="add_sno" style="width: 200px; height: 30px;" class="easyui-textbox"
+                           type="text" name="sno" data-options="required:true, missingMessage:'请填写学号~'"/>
                 </td>
             </tr>
 
             <tr>
-                <td>课程代码</td>
+                <td>课程</td>
+                <%-- 这里选择的时候显示的是课程名，但实际传递的是课程代码--%>
                 <td colspan="1">
-                    <input id="add_cno" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="cno" data-options="required:true, missingMessage:'请填写课程代码哟~'"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>课程类别</td>
-                <td colspan="1">
-                    <select id="add_type" style="width: 200px; height: 30px;" class="easyui-combobox"
-                            name="type" data-options="required:true, missingMessage:'请选择课程类别~'">
-                        <option value="common">学科基础</option>
-                        <c:forEach items="${majorList}" var="major">
-                            <option value="${major.abbreviation}">${major.name}</option>
+                    <select id="add_cno" style="width: 200px; height: 30px;" class="easyui-combobox"
+                            name="cno" data-options="required:true, missingMessage:'请选择课程~'">
+                        <option value="">未选择</option>
+                        <c:forEach items="${courseList}" var="course">
+                            <option value="${course.cno}">(${course.cno})${course.name}</option>
                         </c:forEach>
                     </select>
+
+                    <%--<input id="add_cno" style="width: 200px; height: 30px;" class="easyui-textbox"--%>
+                    <%--       type="text" name="cno" data-options="required:true, missingMessage:'请填写课程代码哟~'"/>--%>
                 </td>
             </tr>
 
             <tr>
-                <td>学分</td>
+                <td>分数</td>
                 <td colspan="1">
-                    <input id="add_credit" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="credit" data-options="required:true, missingMessage:'请填写课程学分~'"/>
+                    <input id="add_score" style="width: 200px; height: 30px;" class="easyui-textbox"
+                           type="text" name="score" data-options="required:true, missingMessage:'请填写分数~'"/>
                 </td>
             </tr>
 
             <tr>
-                <td>开设学期</td>
+                <td>是否通过</td>
                 <td colspan="1">
-                    <input id="add_semester" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="semester" data-options="required:true, missingMessage:'请填写开设学期~'"/>
+                    <input id="add_pass" style="width: 200px; height: 30px;" class="easyui-textbox"
+                           type="text" name="pass" placeholder="是" data-options="required:false"/>
                 </td>
             </tr>
+
 
 
         </table>
@@ -386,47 +378,43 @@
         <input type="hidden" id="edit_id" name="id"/>
         <table id="editTable" style="border-collapse:separate; border-spacing:0 3px;" cellpadding="6">
             <tr>
-                <td>名称</td>
+                <td>学号</td>
                 <td colspan="1">
-                    <input id="edit_name" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="name" data-options="required:true, missingMessage:'请填写课程名称~'"/>
+                    <input id="edit_sno" style="width: 200px; height: 30px;" class="easyui-textbox"
+                           type="text" name="sno" data-options="required:true, missingMessage:'请填写学号~'"/>
                 </td>
             </tr>
 
             <tr>
-                <td>课程代码</td>
+                <td>课程</td>
+                <%-- 这里选择的时候显示的是课程名，但实际传递的是课程代码--%>
                 <td colspan="1">
-                    <input id="edit_cno" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="cno" data-options="required:true, missingMessage:'请填写课程代码哟~'"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>课程类别</td>
-                <td colspan="1">
-                    <select id="edit_type" style="width: 200px; height: 30px;" class="easyui-combobox"
-                            name="type" data-options="required:true, missingMessage:'请选择课程类别~'">
-                        <option value="common">学科基础</option>
-                        <c:forEach items="${majorList}" var="major">
-                            <option value="${major.abbreviation}">${major.name}</option>
+                    <select id="edit_cno" style="width: 200px; height: 30px;" class="easyui-combobox"
+                            name="cno" data-options="required:true, missingMessage:'请选择课程~'">
+                        <option value="">未选择</option>
+                        <c:forEach items="${courseList}" var="course">
+                            <option value="${course.cno}">(${course.cno})${course.name}</option>
                         </c:forEach>
                     </select>
+
+                    <%--<input id="edit_cno" style="width: 200px; height: 30px;" class="easyui-textbox"--%>
+                    <%--       type="text" name="cno" data-options="required:true, missingMessage:'请填写课程代码哟~'"/>--%>
                 </td>
             </tr>
 
             <tr>
-                <td>学分</td>
+                <td>分数</td>
                 <td colspan="1">
-                    <input id="edit_credit" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="credit" data-options="required:true, missingMessage:'请填写课程学分~'"/>
+                    <input id="edit_score" style="width: 200px; height: 30px;" class="easyui-textbox"
+                           type="text" name="score" data-options="required:true, missingMessage:'请填写分数~'"/>
                 </td>
             </tr>
 
             <tr>
-                <td>开设学期</td>
+                <td>是否通过</td>
                 <td colspan="1">
-                    <input id="edit_semester" style="width: 200px; height: 30px;" class="easyui-textbox"
-                           type="text" name="semester" data-options="required:true, missingMessage:'请填写开设学期~'"/>
+                    <input id="edit_pass" style="width: 200px; height: 30px;" class="easyui-textbox"
+                           type="text" name="pass" placeholder="是" data-options="required:false"/>
                 </td>
             </tr>
 

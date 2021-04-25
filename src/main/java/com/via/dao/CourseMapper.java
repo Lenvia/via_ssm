@@ -14,4 +14,7 @@ public interface CourseMapper {
     int update(Course course);
 
     int deleteById(Integer[] ids);
+
+    List<Course> selectAll();
+
 }

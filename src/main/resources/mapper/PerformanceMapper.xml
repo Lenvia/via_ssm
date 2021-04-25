@@ -2,5 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.via.dao.PerformanceMapper">
-    
+    <select id="selectList" parameterType="performance" resultType="performance">
+        select id, sno, cno, sname, cname, score, pass from tb_performance
+        <where>
+            <if test="sno!=null and sno!=''">
+                AND sno = #{sno}
+            </if>
+            <if test="cno!=null and cno!=''">
+                AND cno = #{cno}
+            </if>
+            <if test="sname!=null and sname!=''">
+                AND sname LIKE concat(concat('%', #{sname}), '%')
+            </if>
+            <if test="cname!=null and cname!=''">
+                AND cname LIKE concat(concat('%', #{cname}), '%')
+            </if>
+
+        </where>
+    </select>
 </mapper>

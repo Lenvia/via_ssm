@@ -7,7 +7,12 @@
         select * from tb_student
         where email=#{email} and password = #{password}
     </select>
-    
+
+
+    <select id="selectAll" resultType="student">
+        select * from tb_student
+    </select>
+
     <select id="selectList" parameterType="student" resultType="student">
         select id, sno, name, gender, major, email, telephone, introduction, portrait_path from tb_student
         <where>

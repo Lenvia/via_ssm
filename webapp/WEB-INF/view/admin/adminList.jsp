@@ -48,7 +48,7 @@
                 remoteSort: false,
                 columns: [[
                     {field: 'chk', checkbox:true, width:50},
-                    {field: 'id', title:'ID', width: 50, sortable: true},
+                    {field: 'id', title:'ID', width: 50, sortable: true, hidden:'true'},
                     {field: 'name', title:'姓名', width: 150},
                     {field: 'gender', title:'性别', width: 50},
                     {field: 'email', title:'邮箱', width: 150},

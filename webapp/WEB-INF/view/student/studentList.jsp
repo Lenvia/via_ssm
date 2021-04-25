@@ -49,7 +49,7 @@
                 remoteSort: false,
                 columns: [[
                     {field: 'chk', checkbox:true, width:50},
-                    {field: 'id', title:'ID', width: 50, sortable: true},
+                    {field: 'id', title:'ID', width: 50, sortable: true, hidden:'true'},
                     {field: 'sno', title:'学号', width:150},
                     {field: 'name', title:'姓名', width: 150},
                     {field: 'major', title:'专业', width: 200},

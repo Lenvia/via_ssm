@@ -43,4 +43,9 @@ public class CourseServiceImpl implements CourseService {
     public int deleteById(Integer[] ids) {
         return courseMapper.deleteById(ids);
     }
+
+    @Override
+    public List<Course> selectAll() {
+        return courseMapper.selectAll();
+    }
 }

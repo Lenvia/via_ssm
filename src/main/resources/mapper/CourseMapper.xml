@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.via.dao.CourseMapper">
+    <select id="selectAll" resultType="course">
+        select * from tb_course
+    </select>
+
     <select id="selectList" parameterType="course" resultType="course">
         select * from tb_course
         <where>

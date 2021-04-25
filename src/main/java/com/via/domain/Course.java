@@ -5,7 +5,7 @@ public class Course {
     private String cno;  // 课程编号
     private String name;  // 课程名
     private String type;  // 课程类型（限制选择）
-    private Integer credit;  // 学分
+    private Double credit;  // 学分
     private Integer semester;  // 开设学期（限制选择）
 
     public Integer getId() {
@@ -40,11 +40,11 @@ public class Course {
         this.type = type;
     }
 
-    public Integer getCredit() {
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(Integer credit) {
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 

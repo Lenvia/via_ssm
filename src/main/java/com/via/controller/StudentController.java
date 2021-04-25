@@ -120,7 +120,7 @@ public class StudentController {
 
     @GetMapping("/goStudentListView")
     public ModelAndView goStudentListView(ModelAndView modelAndView){
-        //向页面发送一个存储着Clazz的List对象
+        //向页面发送一个存储着major的List对象
         modelAndView.addObject("majorList", majorService.selectAll());
         modelAndView.setViewName("student/studentList");
         return modelAndView;
